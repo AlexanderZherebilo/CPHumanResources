@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- подключение css-файла -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+            integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+    <!-- подключение нужной версии jQuery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+
+    <!-- подключение popper.js, необходимого для корректной работы некоторых плагинов Bootstrap 4 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
+    </script>
+
+    <!-- подключение js-файла -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+            integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous">
+    </script>
+</head>
+<body>
+<header class="row justify-content-center bg-info">
+    <h1>Отдел кадров</h1>
+</header>
+<div class="container"><br>
+    <div class="row justify-content-center">
+        <form class="col-4 jumbotron" name="authorize" style="position: absolute; top: 20%">
+            <h2 class="text-center">Введите логин и пароль</h2>
+            <label for="email" class="mb-2 mr-sm-2">Логин:</label>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Логин или адрес эл. почты" required autofocus><br>
+            <label for="password" class="mb-2 mr-sm-2">Пароль:</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required><br>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button><br>
+            Нет учётной записи?<a class="text-info btn" href="/registration">Зарегистрируйтесь</a>
+        </form>
+    </div>
+</div>
+<footer class="row justify-content-center bg-dark" style="position: absolute; bottom: 0; width: 100%;">
+    <p class="text-light">&copy; 2019 BSUIR, Zherebilo AV</p>
+</footer>
+</body>
+</html>
