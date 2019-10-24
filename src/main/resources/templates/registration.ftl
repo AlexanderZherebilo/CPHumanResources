@@ -1,28 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- подключение css-файла -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-
-    <!-- подключение нужной версии jQuery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-    </script>
-
-    <!-- подключение popper.js, необходимого для корректной работы некоторых плагинов Bootstrap 4 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous">
-    </script>
-
-    <!-- подключение js-файла -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
-            integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous">
-    </script>
-</head>
-<body>
+<#import "parts/common.ftl" as c>
+<@c.page "Регистрация">
 <header class="row justify-content-center bg-info">
     <h1>Регистрация пользователя системы отдела кадров</h1>
 </header>
@@ -35,13 +12,13 @@
             <label for="inputPassword" class="mb-2 mr-sm-2">Пароль:</label>
             <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Пароль" title="Используйте только латинские символы и цифры, также символ '_'" minlength="8" pattern="^[a-zA-Z0-9_]+$" required><br>
             <input type="password" id="repeatPassword" class="form-control" placeholder="Повторите пароль" title="Используйте только латинские символы и цифры, также символ '_'" minlength="7" pattern="^[a-zA-Z0-9_]+$" required><br>
-            <!--<label for="inputEmail" class="mb-2 mr-sm-2">Email, к которому будет привязан аккаунт:</label>
+            <label for="inputEmail" class="mb-2 mr-sm-2">Email, к которому будет привязан аккаунт:</label>
             <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Адрес эл. почты" required><br>
-            <label for="employee">Укажите сотрудника, которого хотите зарегистрировать:</label>
+            <!--<label for="employee">Укажите сотрудника, которого хотите зарегистрировать:</label>
             <input type="text" name="worker" id="inputWorker" class="form-control" title="Укажите ваши имя и фамилию через пробел (из списка зарегистрированных сотрудников)" required autofocus><br> -->
-            <span class="text-danger lead">{{#Error}}{{Error}}{{/Error}}</span>
+            <span class="text-danger lead">${Error?if_exists}</span>
             <br>
-            <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
+            <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрировать</button><br>
         </form>
     </div>
@@ -49,14 +26,13 @@
 <footer class="row justify-content-center bg-dark" style="position: relative; bottom: 0; width: 100%;">
     <p class="text-light">&copy; 2019 BSUIR, Zherebilo AV</p>
 </footer>
-</body>
 <script>
     function formValidation() {
         if ($("#inputPassword").val() !== $("#repeatPassword").val()) {
-            $("#repeatPassword").after("<span class='text-danger lead'>Пароли не совпадают!</span>");
+            $("#repeatPassword").after("<div class='text-danger lead'>Пароли не совпадают!</div>");
             return false;
         }
         else return true;
     }
 </script>
-</html>
+</@c.page>
