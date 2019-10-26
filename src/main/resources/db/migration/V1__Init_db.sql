@@ -21,7 +21,95 @@ create table usr (
     email varchar(255),
     password varchar(255) not null,
     username varchar(255) not null,
+    --employee_id int8 not null,
     primary key (id)
+);
+
+create table employee (
+    id int8 not null,
+    personnel_number int8 not null, --табельный номер
+    retirement_code int8 not null, --пенсионный код
+    surname varchar(255) not null,
+    realname varchar(255) not null,
+    lastname varchar(255) not null,
+    gender varchar(255) not null,
+    birthday date not null,
+    education varchar(255) not null,
+    speciality varchar(255),
+    qualification varchar(255),
+    marital_status varchar (255) not null, --семейное положение
+    address varchar(255) not null,
+    telephone varchar (255) not null,
+    photo varchar (255),
+    primary key (id)
+);
+
+create table vacation ( --отпуск
+    number int8 not null, --номер указа
+    employee_id int8 not null, --id сотрудника
+    type varchar (255) not null, --тип отпуска
+    starting date not null,
+    ending date not null,
+    primary key (number)
+);
+
+create table passport (
+    id int8 not null,
+    realname varchar (255) not null,
+    surname varchar (255) not null,
+    lastname varchar (255) not null,
+    employee_id int8 not null,
+    series varchar (2) not null,
+    number int8 not null,
+    issued_by varchar (255) not null,
+    date_of_issue date not null,
+    primary key (id)
+);
+
+create table salary (
+    salary_id int8 not null,
+    employee_id int8 not null,
+    type varchar (255) not null,
+    value decimal (10, 2) not null,
+    starting date not null,
+    order_number int8 not null,
+    date_of_order date not null,
+    primary key (salary_id)
+);
+
+create table work_activity (
+    activity_id int8 not null,
+    employee_id int8 not null,
+    department varchar (255) not null,
+    work_position varchar (255) not null,
+    order_number int8 not null,
+    date_of_order date not null,
+    starting_work date not null,
+    primary key (activity_id)
+);
+
+create table learning (
+    id int8 not null,
+    employee_id int8 not null,
+    institution varchar (255) not null,
+    faculty varchar (255) not null,
+    form varchar (255) not null,
+    speciality varchar (255) not null,
+    starting date not null,
+    ending date not null,
+    primary key (id)
+);
+
+create table family (
+    person_id int8 not null,
+    employee_id int8 not null,
+    relation varchar (255) not null,
+    address varchar (255) not null,
+    surname varchar (255) not null,
+    realname varchar (255) not null,
+    lastname varchar (255) not null,
+    birthday date not null,
+    primary key (person_id)
 );
 
 alter table if exists message
