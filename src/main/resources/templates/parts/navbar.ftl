@@ -15,6 +15,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/main">Messages</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user-messages/${currentUserId}">My messages</a>
+            </li>
             <#if isAdmin>
             <li class="nav-item">
                 <a class="nav-link" href="/user">User list</a>
@@ -23,6 +26,11 @@
             <#if user??>
             <li class="nav-item">
                 <a class="nav-link" href="/user/profile">Profile</a>
+            </li>
+            </#if>
+            <#if user??>
+            <li class="nav-item">
+                <a class="nav-link" href="/employee/employeeProfile">Мой профиль</a>
             </li>
             </#if>
         </ul>

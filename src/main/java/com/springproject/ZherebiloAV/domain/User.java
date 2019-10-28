@@ -6,8 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "usr")
@@ -31,12 +30,40 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
+    @OneToOne (optional=false, cascade=CascadeType.ALL)
+    @JoinColumn (name = "employee_id")
+    private Employee employee;
+
+    @OneToMany (mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Message> messages;
+
     public User() {
     }
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    public User(String username, String password, String email, Employee employee) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.employee = employee;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
     }
 
     public boolean isAdmin() {
@@ -122,5 +149,17 @@ public class User implements UserDetails {
 
     public void setActivationCode(String activationCode) {
         this.activationCode = activationCode;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
     }
 }

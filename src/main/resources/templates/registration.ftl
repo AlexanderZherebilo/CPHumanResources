@@ -14,8 +14,8 @@
             <input type="password" id="repeatPassword" class="form-control" placeholder="Повторите пароль" title="Используйте только латинские символы и цифры, также символ '_'" minlength="7" pattern="^[a-zA-Z0-9_]+$" required><br>
             <label for="inputEmail" class="mb-2 mr-sm-2">Email, к которому будет привязан аккаунт:</label>
             <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Адрес эл. почты" required><br>
-            <!--<label for="employee">Укажите сотрудника, которого хотите зарегистрировать:</label>
-            <input type="text" name="worker" id="inputWorker" class="form-control" title="Укажите ваши имя и фамилию через пробел (из списка зарегистрированных сотрудников)" required autofocus><br> -->
+            <label for="employee">Табельный номер:</label>
+            <input type="number" name="personnelNumber" class="form-control" required><br>
             <span class="text-danger lead">${Error?if_exists}</span>
             <br>
             <input type="hidden" name="_csrf" value="${_csrf.token}" />

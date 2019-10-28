@@ -21,9 +21,17 @@ create table usr (
     email varchar(255),
     password varchar(255) not null,
     username varchar(255) not null,
-    --employee_id int8 not null,
+    employee_id int8 not null,
     primary key (id)
 );
+
+alter table if exists message
+    add constraint message_user_fk
+    foreign key (user_id) references usr;
+
+alter table if exists user_role
+    add constraint user_role_user_fk
+    foreign key (user_id) references usr;
 
 create table employee (
     id int8 not null,
@@ -43,6 +51,10 @@ create table employee (
     photo varchar (255),
     primary key (id)
 );
+
+alter table if exists usr
+    add constraint usr_employee_fk
+    foreign key (employee_id) references employee;
 
 create table vacation ( --отпуск
     number int8 not null, --номер указа
@@ -111,11 +123,3 @@ create table family (
     birthday date not null,
     primary key (person_id)
 );
-
-alter table if exists message
-    add constraint message_user_fk
-    foreign key (user_id) references usr;
-
-alter table if exists user_role
-    add constraint user_role_user_fk
-    foreign key (user_id) references usr;
