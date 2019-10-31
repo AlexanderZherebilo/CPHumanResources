@@ -1,5 +1,6 @@
 package com.springproject.ZherebiloAV.controller;
 
+import com.springproject.ZherebiloAV.domain.Employee;
 import com.springproject.ZherebiloAV.domain.User;
 import com.springproject.ZherebiloAV.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,9 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping("employeeProfile")
-    public String getProfile(Model model) {
-
+    public String getProfile(Model model, @AuthenticationPrincipal User user) {
+        Employee employee = employeeService.getByPersonnel(user.getEmployee().getPersonnelNumber());
+        model.addAttribute("currentEmployee", employee);
         return "employeeProfile";
     }
 }

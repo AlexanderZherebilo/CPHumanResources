@@ -60,15 +60,19 @@ create table vacation ( --отпуск
     number int8 not null, --номер указа
     employee_id int8 not null, --id сотрудника
     type varchar (255) not null, --тип отпуска
-    starting date not null,
-    ending date not null,
+    start date not null,
+    finish date not null,
     primary key (number)
 );
 
+alter table if exists vacation
+    add constraint vacation_employee_fk
+    foreign key (employee_id) references employee;
+
 create table passport (
     id int8 not null,
-    realname varchar (255) not null,
     surname varchar (255) not null,
+    realname varchar (255) not null,
     lastname varchar (255) not null,
     employee_id int8 not null,
     series varchar (2) not null,
@@ -78,15 +82,53 @@ create table passport (
     primary key (id)
 );
 
+alter table if exists passport
+    add constraint passport_employee_fk
+    foreign key (employee_id) references employee;
+
 create table salary (
     salary_id int8 not null,
     employee_id int8 not null,
     type varchar (255) not null,
     value decimal (10, 2) not null,
-    starting date not null,
+    currency varchar (3) not null,
+    start date not null,
     order_number int8 not null,
     date_of_order date not null,
     primary key (salary_id)
+);
+
+alter table if exists salary
+    add constraint salary_employee_fk
+    foreign key (employee_id) references employee;
+
+create table learning (
+    id int8 not null,
+    employee_id int8 not null,
+    institution varchar (255) not null,
+    faculty varchar (255) not null,
+    form varchar (255) not null,
+    speciality varchar (255) not null,
+    start date not null,
+    finish date not null,
+    primary key (id)
+);
+
+alter table if exists learning
+    add constraint learning_employee_fk
+    foreign key (employee_id) references employee;
+
+create table family (
+    person_id int8 not null,
+    employee_id int8 not null,
+    relation varchar (255) not null,
+    address varchar (255) not null,
+    work_place varchar (255) not null,
+    surname varchar (255) not null,
+    realname varchar (255) not null,
+    lastname varchar (255) not null,
+    birthday date not null,
+    primary key (person_id)
 );
 
 create table work_activity (
@@ -98,28 +140,4 @@ create table work_activity (
     date_of_order date not null,
     starting_work date not null,
     primary key (activity_id)
-);
-
-create table learning (
-    id int8 not null,
-    employee_id int8 not null,
-    institution varchar (255) not null,
-    faculty varchar (255) not null,
-    form varchar (255) not null,
-    speciality varchar (255) not null,
-    starting date not null,
-    ending date not null,
-    primary key (id)
-);
-
-create table family (
-    person_id int8 not null,
-    employee_id int8 not null,
-    relation varchar (255) not null,
-    address varchar (255) not null,
-    surname varchar (255) not null,
-    realname varchar (255) not null,
-    lastname varchar (255) not null,
-    birthday date not null,
-    primary key (person_id)
 );

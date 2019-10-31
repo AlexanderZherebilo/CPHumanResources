@@ -16,7 +16,7 @@
             <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Адрес эл. почты" required><br>
             <label for="employee">Табельный номер:</label>
             <input type="number" name="personnelNumber" class="form-control" required><br>
-            <span class="text-danger lead">${Error?if_exists}</span>
+            <span class="text-danger">${Error?if_exists}</span>
             <br>
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрировать</button><br>

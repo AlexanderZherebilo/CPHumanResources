@@ -2,10 +2,12 @@ package com.springproject.ZherebiloAV.controller;
 
 import com.springproject.ZherebiloAV.domain.Message;
 import com.springproject.ZherebiloAV.domain.User;
+import com.springproject.ZherebiloAV.repos.EmployeeRepo;
 import com.springproject.ZherebiloAV.repos.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,7 +36,9 @@ public class MainController {
     private String uploadPath;
 
     @GetMapping("/")
-    public String greeting() {return "greeting";}
+    public String greeting() {
+        return "greeting";
+    }
 
     @GetMapping("/main")
     public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {

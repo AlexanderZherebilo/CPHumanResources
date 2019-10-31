@@ -10,7 +10,7 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepo employeeRepo;
 
-    public Employee getById(int id) {
-        return employeeRepo.findById(id);
+    public Employee getByPersonnel(int number) {
+        return employeeRepo.findByPersonnelNumber(number);
     }
 }

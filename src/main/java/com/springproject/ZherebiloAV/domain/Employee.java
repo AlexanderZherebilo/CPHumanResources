@@ -2,6 +2,7 @@ package com.springproject.ZherebiloAV.domain;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "employee")
@@ -28,8 +29,20 @@ public class Employee {
     private String telephone;
     private String photo;
 
-    @OneToOne (optional=false, mappedBy="employee")
+    @OneToOne(optional = false, mappedBy = "employee")
     private User account;
+
+    @OneToOne(optional = false, mappedBy = "employee")
+    private Vacation vacation;
+
+    @OneToOne(optional = false, mappedBy = "employee")
+    private Passport passport;
+
+    @OneToOne(optional = false, mappedBy = "employee")
+    private Salary salary;
+
+    @OneToOne(optional = false, mappedBy = "employee")
+    private Learning learning;
 
     public Employee() {
     }
@@ -160,5 +173,37 @@ public class Employee {
 
     public void setAccount(User account) {
         this.account = account;
+    }
+
+    public Vacation getVacation() {
+        return vacation;
+    }
+
+    public void setVacation(Vacation vacation) {
+        this.vacation = vacation;
+    }
+
+    public Passport getPassport() {
+        return passport;
+    }
+
+    public void setPassport(Passport passport) {
+        this.passport = passport;
+    }
+
+    public Salary getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Salary salary) {
+        this.salary = salary;
+    }
+
+    public Learning getLearning() {
+        return learning;
+    }
+
+    public void setLearning(Learning learning) {
+        this.learning = learning;
     }
 }

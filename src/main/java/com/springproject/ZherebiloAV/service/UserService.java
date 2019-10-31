@@ -1,7 +1,9 @@
 package com.springproject.ZherebiloAV.service;
 
+import com.springproject.ZherebiloAV.domain.Employee;
 import com.springproject.ZherebiloAV.domain.Role;
 import com.springproject.ZherebiloAV.domain.User;
+import com.springproject.ZherebiloAV.repos.EmployeeRepo;
 import com.springproject.ZherebiloAV.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +22,9 @@ public class UserService implements UserDetailsService {
     private UserRepo userRepo;
 
     @Autowired
+    private EmployeeRepo employeeRepo;
+
+    @Autowired
     private MailSender mailSender;
 
     @Autowired
@@ -36,16 +41,18 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public boolean addUser(User user) {
+    public boolean addUser(User user, int number) {
         User userFromDb = userRepo.findByUsername(user.getUsername());
+        Employee employee = employeeRepo.findByPersonnelNumber(number);
 
-        if (userFromDb != null) {
+        if (userFromDb != null || employee == null) {
             return false;
         }
 
         user.setRoles(Collections.singleton(Role.USER));
         user.setActivationCode(UUID.randomUUID().toString());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setEmployee(employee);
 
         userRepo.save(user);
 

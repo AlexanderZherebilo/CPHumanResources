@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
 
@@ -22,9 +23,9 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(User user, Model model) {
-        if (!userService.addUser(user)) {
-            model.addAttribute("Error", "Логин уже занят!");
+    public String addUser(User user, @RequestParam("personnelNumber") int number,  Model model) {
+        if (!userService.addUser(user, number)) {
+            model.addAttribute("Error", "Выбранный логин занят, либо табельный номер недействителен!");
             return "registration";
         }
 
