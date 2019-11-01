@@ -14,12 +14,6 @@ public class Employee {
     private Integer personnelNumber;
     @Column(name = "retirement_code")
     private Integer retirementCode;
-    private String surname;
-    @Column(name = "realname")
-    private String name;
-    private String lastname;
-    private String gender;
-    private Date birthday;
     private String education;
     private String speciality;
     private String qualification;
@@ -32,17 +26,14 @@ public class Employee {
     @OneToOne(optional = false, mappedBy = "employee")
     private User account;
 
-    @OneToOne(optional = false, mappedBy = "employee")
-    private Vacation vacation;
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<FamilyMember> members;
 
     @OneToOne(optional = false, mappedBy = "employee")
     private Passport passport;
 
     @OneToOne(optional = false, mappedBy = "employee")
     private Salary salary;
-
-    @OneToOne(optional = false, mappedBy = "employee")
-    private Learning learning;
 
     public Employee() {
     }
@@ -69,46 +60,6 @@ public class Employee {
 
     public void setRetirementCode(Integer retirementCode) {
         this.retirementCode = retirementCode;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
     }
 
     public String getEducation() {
@@ -175,35 +126,15 @@ public class Employee {
         this.account = account;
     }
 
-    public Vacation getVacation() {
-        return vacation;
-    }
-
-    public void setVacation(Vacation vacation) {
-        this.vacation = vacation;
+    public List<FamilyMember> getMembers() {
+        return members;
     }
 
     public Passport getPassport() {
         return passport;
     }
 
-    public void setPassport(Passport passport) {
-        this.passport = passport;
-    }
-
     public Salary getSalary() {
         return salary;
-    }
-
-    public void setSalary(Salary salary) {
-        this.salary = salary;
-    }
-
-    public Learning getLearning() {
-        return learning;
-    }
-
-    public void setLearning(Learning learning) {
-        this.learning = learning;
     }
 }

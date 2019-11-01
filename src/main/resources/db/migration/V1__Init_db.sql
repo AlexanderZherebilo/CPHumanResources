@@ -37,11 +37,6 @@ create table employee (
     id int8 not null,
     personnel_number int8 not null, --табельный номер
     retirement_code int8 not null, --пенсионный код
-    surname varchar(255) not null,
-    realname varchar(255) not null,
-    lastname varchar(255) not null,
-    gender varchar(255) not null,
-    birthday date not null,
     education varchar(255) not null,
     speciality varchar(255),
     qualification varchar(255),
@@ -71,9 +66,11 @@ alter table if exists vacation
 
 create table passport (
     id int8 not null,
-    surname varchar (255) not null,
-    realname varchar (255) not null,
-    lastname varchar (255) not null,
+    surname varchar(255) not null,
+    realname varchar(255) not null,
+    lastname varchar(255) not null,
+    gender varchar(255) not null,
+    birthday date not null,
     employee_id int8 not null,
     series varchar (2) not null,
     number int8 not null,
@@ -90,8 +87,8 @@ create table salary (
     salary_id int8 not null,
     employee_id int8 not null,
     type varchar (255) not null,
-    value decimal (10, 2) not null,
     currency varchar (3) not null,
+    value decimal (10, 2) not null,
     start date not null,
     order_number int8 not null,
     date_of_order date not null,
@@ -130,6 +127,10 @@ create table family (
     birthday date not null,
     primary key (person_id)
 );
+
+alter table if exists family
+    add constraint family_employee_fk
+    foreign key (employee_id) references employee;
 
 create table work_activity (
     activity_id int8 not null,

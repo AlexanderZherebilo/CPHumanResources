@@ -7,19 +7,18 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 @Entity
-@Table(name = "salary")
 public class Salary {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "salary_id")
     private Integer id;
     private String type;
-    private BigDecimal value;
     @Length(max=3)
     private String currency;
+    private BigDecimal value;
     private Date start;
     @Column(name = "order_number")
-    private Integer orderNum;
+    private Integer orderNumber;
     @Column(name = "date_of_order")
     private Date dateOfOrder;
 
@@ -46,20 +45,20 @@ public class Salary {
         this.type = type;
     }
 
-    public BigDecimal getValue() {
-        return value;
-    }
-
-    public void setValue(BigDecimal value) {
-        this.value = value;
-    }
-
     public String getCurrency() {
         return currency;
     }
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public BigDecimal getValue() {
+        return value;
+    }
+
+    public void setValue(BigDecimal value) {
+        this.value = value;
     }
 
     public Date getStart() {
@@ -70,12 +69,12 @@ public class Salary {
         this.start = start;
     }
 
-    public Integer getOrderNum() {
-        return orderNum;
+    public Integer getOrderNumber() {
+        return orderNumber;
     }
 
-    public void setOrderNum(Integer orderNum) {
-        this.orderNum = orderNum;
+    public void setOrderNumber(Integer orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public Date getDateOfOrder() {

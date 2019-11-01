@@ -15,7 +15,7 @@
             <label for="inputEmail" class="mb-2 mr-sm-2">Email, к которому будет привязан аккаунт:</label>
             <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Адрес эл. почты" required><br>
             <label for="employee">Табельный номер:</label>
-            <input type="number" name="personnelNumber" class="form-control" required><br>
+            <input type="number" name="personnelNumber" class="form-control" required>
             <span class="text-danger">${Error?if_exists}</span>
             <br>
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
