@@ -22,7 +22,7 @@ public class Salary {
     @Column(name = "date_of_order")
     private Date dateOfOrder;
 
-    @OneToOne (optional=false, cascade=CascadeType.ALL)
+    @OneToOne (cascade=CascadeType.ALL)
     @JoinColumn (name = "employee_id")
     private Employee employee;
 

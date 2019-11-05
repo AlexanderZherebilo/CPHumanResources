@@ -15,25 +15,29 @@ public class Employee {
     @Column(name = "retirement_code")
     private Integer retirementCode;
     private String education;
-    private String speciality;
-    private String qualification;
     @Column(name = "marital_status")
     private String maritalStatus;
     private String address;
     private String telephone;
     private String photo;
 
-    @OneToOne(optional = false, mappedBy = "employee")
-    private User account;
+    @OneToOne(optional = false, mappedBy = "employee") //параметр optional писать только если наличие связанных записей в обеих таблицах обязательно
+    private User account;                              //в противном случае это может привести к невозможности авторизации с данным аккаунтом
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<FamilyMember> members;
 
-    @OneToOne(optional = false, mappedBy = "employee")
+    @OneToOne(mappedBy = "employee")
     private Passport passport;
 
-    @OneToOne(optional = false, mappedBy = "employee")
+    @OneToOne(mappedBy = "employee")
     private Salary salary;
+
+    @OneToOne(mappedBy = "employee")
+    private Vacation vacation;
+
+    @OneToOne(mappedBy = "employee")
+    private Learning learning;
 
     public Employee() {
     }
@@ -68,22 +72,6 @@ public class Employee {
 
     public void setEducation(String education) {
         this.education = education;
-    }
-
-    public String getSpeciality() {
-        return speciality;
-    }
-
-    public void setSpeciality(String speciality) {
-        this.speciality = speciality;
-    }
-
-    public String getQualification() {
-        return qualification;
-    }
-
-    public void setQualification(String qualification) {
-        this.qualification = qualification;
     }
 
     public String getMaritalStatus() {
@@ -130,11 +118,37 @@ public class Employee {
         return members;
     }
 
+    public boolean hasRelatives() {return members.size()!=0?true:false;}
+
     public Passport getPassport() {
         return passport;
     }
 
+    public void setPassport(Passport passport) {
+        this.passport = passport;
+    }
+
+    public void setSalary(Salary salary) {
+        this.salary = salary;
+    }
+
     public Salary getSalary() {
         return salary;
+    }
+
+    public Vacation getVacation() {
+        return vacation;
+    }
+
+    public void setVacation(Vacation vacation) {
+        this.vacation = vacation;
+    }
+
+    public Learning getLearning() {
+        return learning;
+    }
+
+    public void setLearning(Learning learning) {
+        this.learning = learning;
     }
 }

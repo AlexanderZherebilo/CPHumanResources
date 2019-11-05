@@ -38,8 +38,6 @@ create table employee (
     personnel_number int8 not null, --табельный номер
     retirement_code int8 not null, --пенсионный код
     education varchar(255) not null,
-    speciality varchar(255),
-    qualification varchar(255),
     marital_status varchar (255) not null, --семейное положение
     address varchar(255) not null,
     telephone varchar (255) not null,
@@ -52,11 +50,11 @@ alter table if exists usr
     foreign key (employee_id) references employee;
 
 create table vacation ( --отпуск
-    number int8 not null, --номер указа
+    number int8, --номер указа
     employee_id int8 not null, --id сотрудника
-    type varchar (255) not null, --тип отпуска
-    start date not null,
-    finish date not null,
+    type varchar (255), --тип отпуска
+    start date,
+    finish date,
     primary key (number)
 );
 
@@ -105,7 +103,8 @@ create table learning (
     institution varchar (255) not null,
     faculty varchar (255) not null,
     form varchar (255) not null,
-    speciality varchar (255) not null,
+    speciality varchar(255),
+    qualification varchar(255),
     start date not null,
     finish date not null,
     primary key (id)

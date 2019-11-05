@@ -24,7 +24,7 @@ public class Passport {
     @Column(name = "date_of_issue")
     private Date dateOfIssue;
 
-    @OneToOne (optional=false, cascade=CascadeType.ALL)
+    @OneToOne (cascade=CascadeType.ALL)
     @JoinColumn (name = "employee_id")
     private Employee employee;
 
