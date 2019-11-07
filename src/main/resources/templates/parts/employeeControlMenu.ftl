@@ -11,12 +11,12 @@
             </div>
             <#if user??>
             <li class="nav-item">
-                <a class="nav-link" href="">Редактировать личную информацию</a>
+                <a class="nav-link" href="/employee/editEmployee">Редактировать личную информацию</a>
             </li>
             </#if>
             <#if user??>
             <li class="nav-item">
-                <a class="nav-link" href="">Редактировать образование</a>
+                <a class="nav-link" href="/employee/editLearning">Редактировать образование</a>
             </li>
             </#if>
             <#if user??>

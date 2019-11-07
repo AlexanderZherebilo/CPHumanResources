@@ -23,7 +23,6 @@
                 </div>
             </div>
             <div class="col-md-3 bg-light text-dark">
-                <p><b>Пол:</b> ${currentEmployee.passport.gender}</p>
                 <p><b>Дата рождения:</b> ${currentEmployee.passport.birthday}</p>
                 <p><b>Семейное положение:</b> ${currentEmployee.maritalStatus}</p><hr>
                 <p><b>Образование:</b> ${currentEmployee.education}</p>
@@ -51,12 +50,30 @@
             </div>
             </#if>
         </div>
+        <div class="row">
+        <#if currentEmployee.salary??>
+            <div class="col-md-5 my-2 bg-success">
+                <h2 class="text-center">Заработная плата</h2>
+                <p><b>Величина зарплаты: </b>${currentEmployee.salary.value}  ${currentEmployee.salary.currency}</p>
+                <p><b>Начало действия: </b>${currentEmployee.salary.start}</p>
+                <p><b>Номер указа: </b>${currentEmployee.salary.orderNumber}</p>
+                <p><b>Дата указа: </b>${currentEmployee.salary.dateOfOrder}</p>
+            </div>
+        </#if>
+            <#if currentEmployee.vacation??>
+                <div class="col-md-5 my-2 mx-2 bg-danger">
+                    <h2 class="text-center">Сотрудник в отпуске</h2>
+                    <p><b>Дата начала: </b>${currentEmployee.vacation.start}</p>
+                    <p><b>Дата окончания: </b>${currentEmployee.vacation.finish}</p>
+                </div>
+            </#if>
+        </div>
         <#if currentEmployee.hasRelatives() = true>
         <h3 class="text-center">Члены семьи</h3>
         <div class="row">
         <#list currentEmployee.getMembers() as member>
         <div class="col-md-4">
-            <div class="card mx-1 p-1">
+            <div class="card p-1 bg-light">
                 <b><i>${member.relation}</i></b>
                     <span class="text-dark">${member.surname} ${member.name} ${member.lastname}</span>
                 <div class="my-1">
@@ -69,17 +86,6 @@
         </#list>
         </#if>
         </div>
-        <#if currentEmployee.salary??>
-        <div class="row">
-            <div class="col-md-4 bg-success">
-                <h2 class="text-center">Заработная плата</h2>
-                <p><b>Величина зарплаты: </b>${currentEmployee.salary.value}  ${currentEmployee.salary.currency}</p>
-                <p><b>Начало действия: </b>${currentEmployee.salary.start}</p>
-                <p><b>Номер указа: </b>${currentEmployee.salary.orderNumber}</p>
-                <p><b>Дата указа: </b>${currentEmployee.salary.dateOfOrder}</p>
-            </div>
-        </div>
-        </#if>
     </div>
     </div>
 </@c.page>
