@@ -15,6 +15,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/main">Сообщения</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/employee/employeeList">Список сотрудников</a>
+            </li>
             <#if isAdmin>
             <li class="nav-item">
                 <a class="nav-link" href="/user">Список пользователей</a>

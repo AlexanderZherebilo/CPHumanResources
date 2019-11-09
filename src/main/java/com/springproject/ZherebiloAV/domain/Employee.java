@@ -120,6 +120,13 @@ public class Employee {
 
     public boolean hasRelatives() {return members.size()!=0?true:false;}
 
+    public String getMarrige() {
+        String[] res = maritalStatus.split("/");
+         if (passport.getGender().equals("Мужской"))
+             return res[0];
+         else return res[1];
+    }
+
     public Passport getPassport() {
         return passport;
     }
@@ -151,4 +158,6 @@ public class Employee {
     public void setLearning(Learning learning) {
         this.learning = learning;
     }
+
+
 }

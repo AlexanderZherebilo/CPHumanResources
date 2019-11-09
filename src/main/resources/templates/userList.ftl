@@ -2,8 +2,7 @@
 
 <@c.page "Управление пользователями">
     <#include "parts/navbar.ftl">
-List of users
-
+<h2>Список пользователей</h2>
 <table class="table">
     <thead>
     <tr>

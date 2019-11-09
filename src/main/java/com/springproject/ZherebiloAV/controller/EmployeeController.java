@@ -7,13 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,14 +28,14 @@ public class EmployeeController {
 
     @GetMapping("editLearning")
     public String getEditLearning(Model model, @AuthenticationPrincipal User user) {
-        List<String> types = new ArrayList<String>();
+        List<String> types = new ArrayList<>();
         types.add("Базовое");
         types.add("Общее среднее");
         types.add("Среднее специальное");
         types.add("Неоконченное высшее");
         types.add("Высшее");
         model.addAttribute("types", types);
-        List<String> forms = new ArrayList<String>();
+        List<String> forms = new ArrayList<>();
         forms.add("Дневная");
         forms.add("Заочная");
         forms.add("Вечерняя");
@@ -86,13 +82,41 @@ public class EmployeeController {
         marriges.add("Холост/Не замужем");
         marriges.add("Женат/Замужем");
         model.addAttribute("marriges", marriges);
+        model.addAttribute("passnum", employee.getPassport().getNumber().toString());
+        model.addAttribute("issueDate", employee.getPassport().getDateOfIssue().toLocalDate());
         return "editEmployee";
     }
 
     @PostMapping("editEmployee")
     public String updateData(
-
+            @AuthenticationPrincipal User user,
+            @RequestParam String surname,
+            @RequestParam String name,
+            @RequestParam String lastname,
+            @RequestParam Date birthday,
+            @RequestParam String gender,
+            @RequestParam String marital,
+            @RequestParam String address,
+            @RequestParam String telephone,
+            @RequestParam String series,
+            @RequestParam String number,
+            @RequestParam String issuedBy,
+            @RequestParam Date issueDate
     ) {
+        employeeService.updateEmployee(user.getEmployee(), surname, name, lastname, birthday,
+                gender, marital, address, telephone, series, Integer.parseInt(number), issuedBy, issueDate);
         return "redirect:/employee/employeeProfile";
+    }
+
+    @GetMapping("employeeList")
+    public String getUserList(Model model) {
+        model.addAttribute("employees", employeeService.findAll());
+        return "employeeList";
+    }
+
+    @GetMapping("{employee}")
+    public String getEmployeeProfile(@PathVariable Employee employee, Model model) {
+        model.addAttribute("currentEmployee", employee);
+        return "employeeProfile";
     }
 }
