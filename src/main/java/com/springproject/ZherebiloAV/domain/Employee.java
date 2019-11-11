@@ -21,13 +21,13 @@ public class Employee {
     private String telephone;
     private String photo;
 
-    @OneToOne(optional = false, mappedBy = "employee") //параметр optional писать только если наличие связанных записей в обеих таблицах обязательно
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL) //параметр optional писать только если наличие связанных записей в обеих таблицах обязательно
     private User account;                              //в противном случае это может привести к невозможности авторизации с данным аккаунтом
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<FamilyMember> members;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     private Passport passport;
 
     @OneToOne(mappedBy = "employee")
@@ -40,6 +40,16 @@ public class Employee {
     private Learning learning;
 
     public Employee() {
+    }
+
+    public Employee(Integer personnelNumber, Integer retirementCode, String education, String maritalStatus, String address, String telephone, Passport passport) {
+        this.personnelNumber = personnelNumber;
+        this.retirementCode = retirementCode;
+        this.education = education;
+        this.maritalStatus = maritalStatus;
+        this.address = address;
+        this.telephone = telephone;
+        this.passport = passport;
     }
 
     public Long getId() {
@@ -125,6 +135,12 @@ public class Employee {
          if (passport.getGender().equals("Мужской"))
              return res[0];
          else return res[1];
+    }
+
+    public boolean hasAccount() {
+        if (account == null)
+            return false;
+        else return true;
     }
 
     public Passport getPassport() {

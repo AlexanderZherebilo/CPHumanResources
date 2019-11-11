@@ -67,4 +67,11 @@ public class EmployeeService {
             list.add(e);
         return list;
     }
+
+    public boolean saveEmployee(Employee employee) {
+        System.out.println("ПАСПОРТ ID: " + employee.getPassport().getId());
+        employeeRepo.save(employee);
+        passportRepo.save(employee.getPassport());
+        return true;
+    }
 }

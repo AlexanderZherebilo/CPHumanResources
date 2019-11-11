@@ -1,23 +1,32 @@
 package com.springproject.ZherebiloAV.controller;
 
 import com.springproject.ZherebiloAV.domain.Employee;
+import com.springproject.ZherebiloAV.domain.Passport;
 import com.springproject.ZherebiloAV.domain.User;
 import com.springproject.ZherebiloAV.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/employee")
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
+
+    @Value("${upload.path}")
+    private String uploadPath;
 
     @GetMapping("employeeProfile")
     public String getProfile(Model model, @AuthenticationPrincipal User user) {
@@ -118,5 +127,66 @@ public class EmployeeController {
     public String getEmployeeProfile(@PathVariable Employee employee, Model model) {
         model.addAttribute("currentEmployee", employee);
         return "employeeProfile";
+    }
+
+    @GetMapping("addEmployee")
+    public String getAddingPage(Model model) {
+        List<String> genders = new ArrayList<>();
+        genders.add("Мужской");
+        genders.add("Женский");
+        model.addAttribute("genders", genders);
+        List<String> marriges = new ArrayList<>();
+        marriges.add("Холост/Не замужем");
+        marriges.add("Женат/Замужем");
+        model.addAttribute("marriges", marriges);
+        List<String> types = new ArrayList<>();
+        types.add("Базовое");
+        types.add("Общее среднее");
+        types.add("Среднее специальное");
+        types.add("Неоконченное высшее");
+        types.add("Высшее");
+        model.addAttribute("types", types);
+        return "addEmployee";
+    }
+
+    @PostMapping("addEmployee")
+    public String saveEmployee(
+            @RequestParam String surname,
+            @RequestParam String name,
+            @RequestParam String lastname,
+            @RequestParam Date birthday,
+            @RequestParam String gender,
+            @RequestParam String maritalStatus,
+            @RequestParam String education,
+            @RequestParam String address,
+            @RequestParam String telephone,
+            @RequestParam Integer retirementCode,
+            @RequestParam Integer personnelNumber,
+            @RequestParam("photo") MultipartFile photo,
+            @RequestParam String series,
+            @RequestParam Integer number,
+            @RequestParam String issuedBy,
+            @RequestParam Date dateOfIssue
+
+    ) throws IOException {
+        Passport passport = new Passport(surname, name, lastname, birthday, gender, series, number, issuedBy, dateOfIssue);
+        Employee employee = new Employee(personnelNumber, retirementCode, education, maritalStatus, address, telephone, passport);
+        passport.setEmployee(employee);
+        if (photo != null && !photo.getOriginalFilename().isEmpty()) {
+            File uploadDir = new File(uploadPath);
+
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFilename = uuidFile + "," + photo.getOriginalFilename();
+
+            photo.transferTo(new File(uploadPath + "/" + resultFilename));
+
+            employee.setPhoto(resultFilename);
+        }
+        employeeService.saveEmployee(employee);
+        return "redirect:/employee/employeeList";
     }
 }

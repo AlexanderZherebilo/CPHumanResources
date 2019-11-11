@@ -31,6 +31,18 @@ public class Passport {
     public Passport() {
     }
 
+    public Passport(String surname, String name, String lastname, Date birthday, String gender, @Length(max = 2) String series, Integer number, String issuedBy, Date dateOfIssue) {
+        this.surname = surname;
+        this.name = name;
+        this.lastname = lastname;
+        this.birthday = birthday;
+        this.gender = gender;
+        this.series = series;
+        this.number = number;
+        this.issuedBy = issuedBy;
+        this.dateOfIssue = dateOfIssue;
+    }
+
     public Integer getId() {
         return id;
     }

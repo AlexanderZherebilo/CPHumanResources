@@ -4,7 +4,7 @@
     <#include "parts/navbar.ftl">
     <div class="row">
     <div class="col-md-2">
-        <#if currentUserId == currentEmployee.getAccount().id>
+        <#if currentEmployee.hasAccount() && currentUserId == currentEmployee.getAccount().id>
     <#include "parts/employeeControlMenu.ftl">
         </#if>
     </div>
@@ -28,7 +28,7 @@
                 <p><b>Дата рождения:</b> ${currentEmployee.passport.birthday}</p>
                 <p><b>Семейное положение:</b> ${currentEmployee.getMarrige()}</p><hr>
                 <p><b>Образование:</b> ${currentEmployee.education}</p>
-                <#if currentUserId == currentEmployee.getAccount().id>
+                <#if currentEmployee.hasAccount() && currentUserId == currentEmployee.getAccount().id>
                 <a class="btn btn-primary" data-toggle="collapse" href="#privateInfo" role="button" aria-expanded="false" aria-controls="privateInfo">
                     Дополнительно
                 </a>

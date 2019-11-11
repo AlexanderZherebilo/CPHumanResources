@@ -30,7 +30,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
 
-    @OneToOne (optional=false, cascade=CascadeType.ALL)
+    @OneToOne (cascade=CascadeType.ALL)
     @JoinColumn (name = "employee_id")
     private Employee employee;
 

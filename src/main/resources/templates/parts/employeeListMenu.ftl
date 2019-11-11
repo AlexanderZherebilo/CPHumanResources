@@ -10,7 +10,7 @@
                 <a class="navbar-brand" href="">Меню управления</a>
             </div>
             <li class="nav-item">
-                <a class="nav-link" href="">Добавить нового сотрудника</a>
+                <a class="nav-link" href="/employee/addEmployee">Добавить нового сотрудника</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="">Удалить сотрудника</a>
