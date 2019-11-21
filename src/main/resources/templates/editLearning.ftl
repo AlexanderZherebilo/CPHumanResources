@@ -10,7 +10,7 @@
             <div class="col-sm-3">
                 <select name="education" class="form-control">
                     <#list types as type>
-                    <option value="${type}" <#if type == currentType>selected="selected"</#if>>${type}</option>
+                    <option value="${type}" <#if currentType?? && type == currentType>selected="selected"</#if>>${type}</option>
                     </#list>
                 </select>
             </div>
@@ -26,7 +26,7 @@
             <div class="col-sm-3">
                 <select name="form" class="form-control">
                     <#list forms as form>
-                        <option value="${form}" <#if form == currentForm>selected="selected"</#if>>${form}</option>
+                        <option value="${form}" <#if currentForm?? && form == currentForm>selected="selected"</#if>>${form}</option>
                     </#list>
                 </select>
             </div>

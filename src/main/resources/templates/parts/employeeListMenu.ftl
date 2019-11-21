@@ -13,7 +13,7 @@
                 <a class="nav-link" href="/employee/addEmployee">Добавить нового сотрудника</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Удалить сотрудника</a>
+                <a class="nav-link" href="/employee/employeeList/deleting">Удалить сотрудника</a>
             </li>
         </ul>
     </div>

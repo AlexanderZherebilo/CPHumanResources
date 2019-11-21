@@ -5,7 +5,10 @@
     <div class="row">
     <div class="col-md-2">
         <#if currentEmployee.hasAccount() && currentUserId == currentEmployee.getAccount().id>
-    <#include "parts/employeeControlMenu.ftl">
+            <#include "parts/employeeControlMenu.ftl">
+        </#if>
+        <#if isAdmin>
+            <#include "parts/adminMenu.ftl">
         </#if>
     </div>
     <div class="container my-3 col-md-10">

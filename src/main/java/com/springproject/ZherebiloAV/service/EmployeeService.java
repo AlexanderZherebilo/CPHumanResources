@@ -1,7 +1,11 @@
 package com.springproject.ZherebiloAV.service;
 
 import com.springproject.ZherebiloAV.domain.Employee;
+import com.springproject.ZherebiloAV.domain.FamilyMember;
+import com.springproject.ZherebiloAV.domain.Learning;
+import com.springproject.ZherebiloAV.domain.User;
 import com.springproject.ZherebiloAV.repos.EmployeeRepo;
+import com.springproject.ZherebiloAV.repos.FamilyMemberRepo;
 import com.springproject.ZherebiloAV.repos.LearningRepo;
 import com.springproject.ZherebiloAV.repos.PassportRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +27,21 @@ public class EmployeeService {
     @Autowired
     private LearningRepo learningRepo;
 
+    @Autowired
+    private FamilyMemberRepo familyMemberRepo;
+
     public Employee getByPersonnel(int number) {
         return employeeRepo.findByPersonnelNumber(number);
     }
 
-    public void updateLearning(Employee employee, String education, String institution, String form, String faculty,
+    public void updateLearning(Integer personnel, String education, String institution, String form, String faculty,
                                String speciality, String qualification, Date start, Date finish) {
+        Employee employee = employeeRepo.findByPersonnelNumber(personnel);
         employee.setEducation(education);
+        if (employee.getLearning() == null) {
+            employee.setLearning(new Learning());
+            employee.getLearning().setEmployee(employee);
+        }
         employee.getLearning().setInstitution(institution);
         employee.getLearning().setForm(form);
         employee.getLearning().setFaculty(faculty);
@@ -37,8 +49,8 @@ public class EmployeeService {
         employee.getLearning().setQualification(qualification);
         employee.getLearning().setStart(start);
         employee.getLearning().setFinish(finish);
-        learningRepo.save(employee.getLearning());
         employeeRepo.save(employee);
+        learningRepo.save(employee.getLearning());
     }
 
     public void updateEmployee(Employee employee, String surname, String name, String lastname, Date birthday,
@@ -69,9 +81,23 @@ public class EmployeeService {
     }
 
     public boolean saveEmployee(Employee employee) {
-        System.out.println("ПАСПОРТ ID: " + employee.getPassport().getId());
         employeeRepo.save(employee);
         passportRepo.save(employee.getPassport());
         return true;
     }
+
+    public boolean addMember(User user, FamilyMember familyMember) {
+        Employee employee = employeeRepo.findByPersonnelNumber(user.getEmployee().getPersonnelNumber());
+        familyMember.setEmployee(employee);
+        employee.getMembers().add(familyMember);
+        familyMemberRepo.save(familyMember);
+        employeeRepo.save(employee);
+        return true;
+    }
+
+    public void deleteMember(FamilyMember member) {
+        familyMemberRepo.delete(member);
+    }
+
+    public void deleteEmloyee(Employee employee) {employeeRepo.delete(employee);}
 }

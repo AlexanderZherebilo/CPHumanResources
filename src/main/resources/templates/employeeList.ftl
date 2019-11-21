@@ -12,7 +12,7 @@
             <h1 class="text-center">Сотрудники компании</h1>
             <div class="card-columns">
                 <#list employees as employee>
-                        <div class="card my-2" style="width:300px">
+                        <div class="card my-2" style="width:290px">
                             <#if employee.photo??>
                                 <img src="/img/${employee.photo}" height="250px" width="200px" class="card-img-top">
                             </#if>

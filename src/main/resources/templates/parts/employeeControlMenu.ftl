@@ -17,7 +17,7 @@
                 <a class="nav-link" href="/employee/editLearning">Образование</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Состав семьи</a>
+                <a class="nav-link" href="/employee/family/${currentEmployeeId}">Состав семьи</a>
             </li>
             </#if>
         </ul>

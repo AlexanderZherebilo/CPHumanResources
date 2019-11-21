@@ -23,6 +23,16 @@ public class Learning {
     public Learning() {
     }
 
+    public Learning(String institution, String faculty, String form, String speciality, String qualification, Date start, Date finish) {
+        this.institution = institution;
+        this.faculty = faculty;
+        this.form = form;
+        this.speciality = speciality;
+        this.qualification = qualification;
+        this.start = start;
+        this.finish = finish;
+    }
+
     public Integer getId() {
         return id;
     }

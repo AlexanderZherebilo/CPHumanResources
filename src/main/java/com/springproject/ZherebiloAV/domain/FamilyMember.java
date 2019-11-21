@@ -27,6 +27,16 @@ public class FamilyMember {
     public FamilyMember() {
     }
 
+    public FamilyMember(String relation, String address, String workPlace, String surname, String name, String lastname, Date birthday) {
+        this.relation = relation;
+        this.address = address;
+        this.workPlace = workPlace;
+        this.surname = surname;
+        this.name = name;
+        this.lastname = lastname;
+        this.birthday = birthday;
+    }
+
     public Integer getId() {
         return id;
     }

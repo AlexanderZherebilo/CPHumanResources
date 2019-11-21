@@ -36,7 +36,7 @@ public class Employee {
     @OneToOne(mappedBy = "employee")
     private Vacation vacation;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     private Learning learning;
 
     public Employee() {
