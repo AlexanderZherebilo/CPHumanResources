@@ -1,11 +1,11 @@
 package com.springproject.ZherebiloAV.controller;
 
-import com.springproject.ZherebiloAV.domain.Employee;
-import com.springproject.ZherebiloAV.domain.FamilyMember;
-import com.springproject.ZherebiloAV.domain.Passport;
-import com.springproject.ZherebiloAV.domain.User;
+import com.springproject.ZherebiloAV.domain.*;
+import com.springproject.ZherebiloAV.repos.DepartmentRepo;
 import com.springproject.ZherebiloAV.repos.FamilyMemberRepo;
+import com.springproject.ZherebiloAV.repos.PositionRepo;
 import com.springproject.ZherebiloAV.service.EmployeeService;
+import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +31,12 @@ public class EmployeeController {
 
     @Autowired
     private FamilyMemberRepo familyMemberRepo;
+
+    @Autowired
+    private DepartmentRepo departmentRepo;
+
+    @Autowired
+    private PositionRepo positionRepo;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -90,6 +96,7 @@ public class EmployeeController {
     @GetMapping("editEmployee")
     public String getEditEmployee(Model model, @AuthenticationPrincipal User user) {
         Employee employee = employeeService.getByPersonnel(user.getEmployee().getPersonnelNumber());
+
         model.addAttribute("employee", employee);
         List<String> genders = new ArrayList<>();
         genders.add("Мужской");
@@ -102,6 +109,8 @@ public class EmployeeController {
         model.addAttribute("marriges", marriges);
         model.addAttribute("passnum", employee.getPassport().getNumber().toString());
         model.addAttribute("issueDate", employee.getPassport().getDateOfIssue().toLocalDate());
+        model.addAttribute("departments", departmentRepo.findAll());
+        model.addAttribute("positions", positionRepo.findAll());
         return "editEmployee";
     }
 
@@ -156,6 +165,8 @@ public class EmployeeController {
         types.add("Неоконченное высшее");
         types.add("Высшее");
         model.addAttribute("types", types);
+        model.addAttribute("departments", departmentRepo.findAll());
+        model.addAttribute("positions", positionRepo.findAll());
         return "addEmployee";
     }
 
@@ -171,6 +182,8 @@ public class EmployeeController {
             @RequestParam String education,
             @RequestParam String address,
             @RequestParam String telephone,
+            @RequestParam Integer department,
+            @RequestParam Integer position,
             @RequestParam Integer retirementCode,
             @RequestParam Integer personnelNumber,
             @RequestParam("photo") MultipartFile photo,
@@ -181,7 +194,8 @@ public class EmployeeController {
 
     ) throws IOException {
         Passport passport = new Passport(surname, name, lastname, birthday, gender, series, number, issuedBy, dateOfIssue);
-        Employee employee = new Employee(personnelNumber, retirementCode, education, maritalStatus, address, telephone, passport);
+        Employee employee = new Employee(personnelNumber, retirementCode, education, maritalStatus, address, telephone,
+                departmentRepo.findById(department), positionRepo.findById(position), passport);
         passport.setEmployee(employee);
         if (photo != null && !photo.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
@@ -244,7 +258,7 @@ public class EmployeeController {
     public String deleteEmployee(
             @PathVariable Employee employee
     ) {
-        employeeService.deleteEmloyee(employee);
+        employeeService.deleteEmployee(employee);
         return "redirect:/employee/employeeList";
     }
 
@@ -266,9 +280,45 @@ public class EmployeeController {
             model.addAttribute("currentCur", employee.getSalary().getCurrency());
             model.addAttribute("value", employee.getSalary().getValue());
             model.addAttribute("start", employee.getSalary().getStart().toLocalDate());
-            model.addAttribute("orderNumber", employee.getSalary().getOrderNumber());
             model.addAttribute("dateOfOrder", employee.getSalary().getDateOfOrder().toLocalDate());
         }
         return "setSalary";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("employeeProfile/setSalary/{employee}")
+    public String updateSalary(
+            @PathVariable Employee employee,
+            @RequestParam String type,
+            @RequestParam String currency,
+            @RequestParam BigDecimal value,
+            @RequestParam Date start,
+            @RequestParam Date dateOfOrder
+    ) {
+        employeeService.setSalary(employee.getPersonnelNumber(), type, currency, value, start, dateOfOrder);
+        return "redirect:/employee/{employee}";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("employeeProfile/giveVacation/{employee}")
+    public String getVacation(@PathVariable Employee employee, Model model) {
+        List<String> types = new ArrayList<>();
+        types.add("Основной");
+        types.add("Декретный");
+        types.add("За свой счёт");
+        model.addAttribute("types", types);
+        return "giveVacation";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("employeeProfile/giveVacation/{employee}")
+    public String giveVacation(
+            @PathVariable Employee employee,
+            @RequestParam String type,
+            @RequestParam Date start,
+            @RequestParam Date finish
+    ) {
+        employeeService.giveVacation(employee.getPersonnelNumber(), type, start, finish);
+        return "redirect:/employee/{employee}";
     }
 }

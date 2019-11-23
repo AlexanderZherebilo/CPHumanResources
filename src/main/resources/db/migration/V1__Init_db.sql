@@ -1,14 +1,5 @@
 create sequence hibernate_sequence start 1 increment 1;
 
-create table message (
-    id int8 not null,
-    filename varchar(255),
-    tag varchar(255),
-    text varchar(2048) not null,
-    user_id int8,
-    primary key (id)
-);
-
 create table user_role (
     user_id int8 not null,
     roles varchar(255)
@@ -24,10 +15,6 @@ create table usr (
     employee_id int8 not null,
     primary key (id)
 );
-
-alter table if exists message
-    add constraint message_user_fk
-    foreign key (user_id) references usr;
 
 alter table if exists user_role
     add constraint user_role_user_fk
@@ -131,13 +118,16 @@ alter table if exists family
     add constraint family_employee_fk
     foreign key (employee_id) references employee;
 
-create table work_activity (
-    activity_id int8 not null,
-    employee_id int8 not null,
-    department varchar (255) not null,
-    work_position varchar (255) not null,
-    order_number int8 not null,
-    date_of_order date not null,
-    starting_work date not null,
-    primary key (activity_id)
+create table department (
+    department_id int8 not null,
+    realname varchar(255) not null,
+    description text not null,
+    primary key(department_id)
+);
+
+create table position (
+    position_id int8 not null,
+    realname varchar(255) not null,
+    description text not null,
+    primary key(position_id)
 );

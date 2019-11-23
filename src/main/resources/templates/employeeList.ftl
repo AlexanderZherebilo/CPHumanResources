@@ -26,8 +26,8 @@
                                 <a href="${employee.id}" class="hyperlink">
                                     <h4 class="card-title text-center">${employee.passport.surname} ${employee.passport.name} ${employee.passport.lastname}</h4>
                                 </a>
-                                <p><b>Отдел: </b></p>
-                                <p><b>Должность: </b></p>
+                                <p><b>Отдел: </b><#if employee.department??>${employee.department.name}</#if></p>
+                                <p><b>Должность: </b><#if employee.position??>${employee.position.name}</#if></p>
                             </div>
                         </div>
                 </#list>

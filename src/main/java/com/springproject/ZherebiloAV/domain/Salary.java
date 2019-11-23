@@ -17,8 +17,6 @@ public class Salary {
     private String currency;
     private BigDecimal value;
     private Date start;
-    @Column(name = "order_number")
-    private Integer orderNumber;
     @Column(name = "date_of_order")
     private Date dateOfOrder;
 
@@ -67,14 +65,6 @@ public class Salary {
 
     public void setStart(Date start) {
         this.start = start;
-    }
-
-    public Integer getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(Integer orderNumber) {
-        this.orderNumber = orderNumber;
     }
 
     public Date getDateOfOrder() {

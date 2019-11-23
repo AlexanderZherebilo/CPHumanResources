@@ -72,6 +72,26 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Отдел:</label>
+                <div class="col-sm-3">
+                    <select name="department" class="form-control">
+                    <#list departments as department>
+                        <option value="${department.id}" selected="selected">${department.name}</option>
+                    </#list>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Должность:</label>
+                <div class="col-sm-3">
+                    <select name="position" class="form-control">
+                    <#list positions as position>
+                        <option value="${position.id}" selected="selected">${position.name}</option>
+                    </#list>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
                 <label class="col-sm-2 col-form-label">Пенсионный код:</label>
                 <div class="col-sm-3">
                     <input type="number" name="retirementCode" pattern="[0-9]{6}" class="form-control" required/>

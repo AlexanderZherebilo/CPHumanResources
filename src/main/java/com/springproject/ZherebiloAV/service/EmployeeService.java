@@ -1,16 +1,11 @@
 package com.springproject.ZherebiloAV.service;
 
-import com.springproject.ZherebiloAV.domain.Employee;
-import com.springproject.ZherebiloAV.domain.FamilyMember;
-import com.springproject.ZherebiloAV.domain.Learning;
-import com.springproject.ZherebiloAV.domain.User;
-import com.springproject.ZherebiloAV.repos.EmployeeRepo;
-import com.springproject.ZherebiloAV.repos.FamilyMemberRepo;
-import com.springproject.ZherebiloAV.repos.LearningRepo;
-import com.springproject.ZherebiloAV.repos.PassportRepo;
+import com.springproject.ZherebiloAV.domain.*;
+import com.springproject.ZherebiloAV.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -29,6 +24,18 @@ public class EmployeeService {
 
     @Autowired
     private FamilyMemberRepo familyMemberRepo;
+
+    @Autowired
+    private SalaryRepo salaryRepo;
+
+    @Autowired
+    private VacationRepo vacationRepo;
+
+    @Autowired
+    private DepartmentRepo departmentRepo;
+
+    @Autowired
+    private PositionRepo positionRepo;
 
     public Employee getByPersonnel(int number) {
         return employeeRepo.findByPersonnelNumber(number);
@@ -54,8 +61,8 @@ public class EmployeeService {
     }
 
     public void updateEmployee(Employee employee, String surname, String name, String lastname, Date birthday,
-                               String gender, String marital, String address, String telephone, String series,
-                               int number, String issuedBy, Date issueDate) {
+                               String gender, String marital, String address, String telephone,
+                               String series, int number, String issuedBy, Date issueDate) {
         employee.getPassport().setSurname(surname);
         employee.getPassport().setName(name);
         employee.getPassport().setLastname(lastname);
@@ -83,6 +90,8 @@ public class EmployeeService {
     public boolean saveEmployee(Employee employee) {
         employeeRepo.save(employee);
         passportRepo.save(employee.getPassport());
+        departmentRepo.save(employee.getDepartment());
+        positionRepo.save(employee.getPosition());
         return true;
     }
 
@@ -99,5 +108,37 @@ public class EmployeeService {
         familyMemberRepo.delete(member);
     }
 
-    public void deleteEmloyee(Employee employee) {employeeRepo.delete(employee);}
+    public void deleteEmployee(Employee employee) {employeeRepo.delete(employee);}
+
+    public void setSalary(Integer personnelNumber, String type, String currency, BigDecimal value, Date start, Date dateOfIssue) {
+        Employee employee = employeeRepo.findByPersonnelNumber(personnelNumber);
+        if (employee.getSalary() == null) {
+            employee.setSalary(new Salary());
+            employee.getSalary().setEmployee(employee);
+        }
+        employee.getSalary().setType(type);
+        employee.getSalary().setCurrency(currency);
+        employee.getSalary().setValue(value);
+        employee.getSalary().setStart(start);
+        employee.getSalary().setDateOfOrder(dateOfIssue);
+        employeeRepo.save(employee);
+        salaryRepo.save(employee.getSalary());
+    }
+
+    public void giveVacation(Integer personnel, String type, Date start, Date finish) {
+        Employee employee = employeeRepo.findByPersonnelNumber(personnel);
+        if (employee.getVacation() == null) {
+            employee.setVacation(new Vacation());
+            employee.getVacation().setEmployee(employee);
+        }
+        employee.getVacation().setType(type);
+        employee.getVacation().setStart(start);
+        employee.getVacation().setFinish(finish);
+        employeeRepo.save(employee);
+        vacationRepo.save(employee.getVacation());
+    }
+
+    public void deleteVacation(Employee employee) {
+        vacationRepo.delete(employee.getVacation());
+    }
 }

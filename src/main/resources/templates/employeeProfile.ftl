@@ -63,13 +63,12 @@
                 <h2 class="text-center">Заработная плата</h2>
                 <p><b>Величина зарплаты: </b>${currentEmployee.salary.value}  ${currentEmployee.salary.currency}</p>
                 <p><b>Начало действия: </b>${currentEmployee.salary.start}</p>
-                <p><b>Номер указа: </b>${currentEmployee.salary.orderNumber}</p>
                 <p><b>Дата указа: </b>${currentEmployee.salary.dateOfOrder}</p>
             </div>
         </#if>
             <#if currentEmployee.vacation??>
                 <div class="col-md-5 my-2 mx-2 bg-danger">
-                    <h2 class="text-center">Сотрудник в отпуске</h2>
+                    <h2 class="text-center">Последний раз был(а) в отпуске</h2>
                     <p><b>Дата начала: </b>${currentEmployee.vacation.start}</p>
                     <p><b>Дата окончания: </b>${currentEmployee.vacation.finish}</p>
                 </div>

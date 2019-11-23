@@ -13,7 +13,7 @@
                 <a class="nav-link" href="/employee/employeeProfile/setSalary/${currentEmployee.id}">Назначить зарплату</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">Выдать отпуск</a>
+                <a class="nav-link" href="/employee/employeeProfile/giveVacation/${currentEmployee.id}/">Выдать отпуск</a>
             </li>
         </ul>
     </div>

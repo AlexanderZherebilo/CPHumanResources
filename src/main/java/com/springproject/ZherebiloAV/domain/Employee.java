@@ -30,25 +30,35 @@ public class Employee {
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     private Passport passport;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     private Salary salary;
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     private Vacation vacation;
 
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
     private Learning learning;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "position_id")
+    private Position position;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id")
+    private Department department;
+
     public Employee() {
     }
 
-    public Employee(Integer personnelNumber, Integer retirementCode, String education, String maritalStatus, String address, String telephone, Passport passport) {
+    public Employee(Integer personnelNumber, Integer retirementCode, String education, String maritalStatus, String address, String telephone, Department department, Position position, Passport passport) {
         this.personnelNumber = personnelNumber;
         this.retirementCode = retirementCode;
         this.education = education;
         this.maritalStatus = maritalStatus;
         this.address = address;
         this.telephone = telephone;
+        this.department = department;
+        this.position = position;
         this.passport = passport;
     }
 
@@ -175,5 +185,19 @@ public class Employee {
         this.learning = learning;
     }
 
+    public Position getPosition() {
+        return position;
+    }
 
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 }
