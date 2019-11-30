@@ -26,9 +26,9 @@ public class UserController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("{user}")
-    public String userEditForm(@PathVariable User user, Model model) {
-        model.addAttribute("user", user);
+    @GetMapping("{us}")
+    public String userEditForm(@PathVariable User us, Model model) {
+        model.addAttribute("user", us);
         model.addAttribute("roles", Role.values());
         return "userEdit";
     }

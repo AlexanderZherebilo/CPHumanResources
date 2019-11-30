@@ -2,6 +2,7 @@ package com.springproject.ZherebiloAV.domain;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Calendar;
 
 @Entity
 public class Vacation {
@@ -50,6 +51,10 @@ public class Vacation {
     public void setFinish(Date finish) {
         this.finish = finish;
     }
+
+    public boolean isStarted() {return start.before(new Date(Calendar.getInstance().getTime().getTime()));}
+
+    public boolean isEnded() {return finish.before(new Date(Calendar.getInstance().getTime().getTime())); }
 
     public Employee getEmployee() {
         return employee;

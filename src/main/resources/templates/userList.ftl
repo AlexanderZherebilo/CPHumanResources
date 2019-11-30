@@ -7,9 +7,9 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th></th>
+            <th>Имя пользователя</th>
+            <th>Роль</th>
+            <th>Действия</th>
         </tr>
         </thead>
         <tbody>
@@ -17,7 +17,7 @@
         <tr>
             <td>${user.username}</td>
             <td><#list user.roles as role>${role}<#sep>, </#list></td>
-            <td><a href="user/${user.id}">Edit</a></td>
+            <td><a href="user/${user.id}">Изменить</a></td>
         </tr>
         </#list>
         </tbody>

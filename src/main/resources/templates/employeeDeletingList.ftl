@@ -15,7 +15,7 @@
         <#list employees as e>
         <tr>
             <td>${e.passport.surname}<br>${e.passport.name} ${e.passport.lastname}</td>
-            <td></td>
+            <td>${e.department.name}, ${e.position.name}</td>
             <td><#if !e.hasAccount()>Нет аккаунта</#if><#if e.hasAccount() && e.account.isAdmin()>Администратор</#if><#if e.hasAccount() && !e.account.isAdmin()>Пользователь</#if></td>
             <td><#if !e.hasAccount() || (e.hasAccount() && !(e.account.username == name))> <span class="btn btn-danger"><a class="btn text-white" href="/employee/employeeList/deleting/${e.id}">Удалить</a></span></#if></td>
         </tr>

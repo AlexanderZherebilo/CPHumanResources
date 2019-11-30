@@ -66,11 +66,27 @@
                 <p><b>Дата указа: </b>${currentEmployee.salary.dateOfOrder}</p>
             </div>
         </#if>
-            <#if currentEmployee.vacation??>
+            <#if currentEmployee.vacation?? && !currentEmployee.vacation.isEnded() && currentEmployee.vacation.isStarted()>
                 <div class="col-md-5 my-2 mx-2 bg-danger">
-                    <h2 class="text-center">Последний раз был(а) в отпуске</h2>
+                    <h2 class="text-center">Сотрудник в отпуске</h2>
                     <p><b>Дата начала: </b>${currentEmployee.vacation.start}</p>
                     <p><b>Дата окончания: </b>${currentEmployee.vacation.finish}</p>
+                </div>
+            </#if>
+        </div>
+        <div class="row">
+            <#if currentEmployee.department??>
+                <div class="col-md-5 my-2 bg-info">
+                    <h2 class="text-center">Отдел</h2>
+                    <p><b>Название отдела: </b>${currentEmployee.department.name}</p>
+                    <p><b>Описание: </b>${currentEmployee.department.description?if_exists}</p>
+                </div>
+            </#if>
+            <#if currentEmployee.position??>
+                <div class="col-md-5 my-2 bg-info">
+                    <h2 class="text-center">Должность</h2>
+                    <p><b>Название должности: </b>${currentEmployee.position.name}</p>
+                    <p><b>Описание: </b>${currentEmployee.position.description?if_exists}</p>
                 </div>
             </#if>
         </div>

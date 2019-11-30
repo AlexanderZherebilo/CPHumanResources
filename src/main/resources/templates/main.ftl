@@ -1,69 +1,45 @@
 <#import "parts/common.ftl" as c>
 <@c.page "Главное меню">
 <#include "parts/navbar.ftl">
-<div class="form-row">
-    <div class="form-group col-md-6">
-        <form method="get" action="/main" class="form-inline">
-            <input type="text" name="filter" class="form-control" value="${filter?ifExists}" placeholder="Search by tag">
-            <button type="submit" class="btn btn-primary ml-2">Search</button>
-        </form>
+<div class="jumbotron">
+    <div class="container">
+        <h1>Добро пожаловать!</h1>
+        <#if isAdmin><p>Вы вошли с правами администратора. Вам доступна возможность регистрировать новых сотрудников в базу данных компании.
+            Также вы можете устанавливать значение зарплаты для сотрудников и отмечать о выдаче отпуска. Обратите внимание, что в разделе <i>Управление правами доступа</i>
+        можно выбрать пользователей, которым Вы хотите передать права администратора. Также помните, что администратор также является сотрудником,
+        а значит ему доступны те же возможности, что и остальным пользователям.</p></#if>
+        <#if !isAdmin><p>Вам доступны все общие права пользователя. Перейдите в раздел <i>Мой профиль</i>, чтобы просмотреть и/или указать подробную информацию о себе.</p></#if>
     </div>
 </div>
-
-<a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Add new message
-</a>
-<div class="collapse <#if message??>show</#if>" id="collapseExample">
-    <div class="form-group mt-3">
-        <form method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <input type="text" class="form-control ${(textError??)?string('is-invalid', '')}"
-                       value="<#if message??>${message.text}</#if>" name="text" placeholder="Введите сообщение" />
-                <#if textError??>
-                <div class="invalid-feedback">
-                    ${textError}
-                </div>
-                </#if>
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control ${(tagError??)?string('is-invalid', '')}"
-                       value="<#if message??>${message.tag}</#if>" name="tag" placeholder="Тэг">
-                <#if tagError??>
-                <div class="invalid-feedback">
-                    ${tagError}
-                </div>
-                </#if>
-            </div>
-            <div class="form-group">
-                <div class="custom-file">
-                    <input type="file" name="file" id="customFile">
-                    <label class="custom-file-label" for="customFile">Выберите изображение размером до 1 Мб</label>
-                </div>
-            </div>
-            <input type="hidden" name="_csrf" value="${_csrf.token}" />
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Добавить</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<div class="card-columns">
-<#list messages as message>
-    <div class="card my-3">
-    <#if message.filename??>
-        <img src="/img/${message.filename}" class="card-img-top">
-    </#if>
-        <div class="m-2">
-            <span>${message.text}</span>
-            <i>${message.tag}</i>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 bg-warning">
+            <h2 class="text-center">Конфиденциальность</h2>
+            <p>Информация о вашем логине, email адресе и пароле видна только Вам. Также в профиле только у Вас есть возможность просмотреть конфиденциальную
+            личную информацию (к ней относятся адрес проживания, телефон и табельный номер). Все остальные данные сотрудника, такие как образование и заработная плата,
+            являются общедоступными для всех пользователей.</p>
         </div>
-        <div class="card-footer text-muted">
-            ${message.authorName}
+        <div class="col-md-4 bg-success">
+            <h2 class="text-center">Регистрация аккаунта</h2>
+            <p>Изначально сотрудник, добавленный в базу данных, не имеет аккаунта. Чтобы иметь возможность входить в приложение под своим именем, сотрудник должен создать аккаунт. Для этого:</p>
+            <ol>
+                <li>Необходимо узнать свой табельный номер</li>
+                <li>Нажать <i>Зарегистрироваться</i> в меню логина</li>
+                <li>Заполнить все указанные данные, после чего проверить почту и активировать аккаунт</li>
+            </ol>
+            <b><i>Важно!</i></b>
+            <p>Внимательно проверяйте адрес электронной почты, который вводите при регистрации. Если письма с ссылкой для активации
+                нет в папке <i>Входящие</i>, проверьте папку <i>Спам</i></p>
+        </div>
+        <div class="col-md-4 bg-warning">
+            <h2 class="text-center">Управление личными данными</h2>
+            <p>Как правило, все Ваши данные доступны для редактирования. В любой момент вы можете изменить информацию о своём образовании, месте проживания или составе семьи,
+            на случай если Вы изначально что-то ввели неверно, а также если данные потеряли актуальность.</p>
         </div>
     </div>
-<#else>
-No message
-</#list>
 </div>
+<footer class="row justify-content-center bg-dark" style="position: absolute; bottom: 0; width: 100%;">
+    <p class="text-light">&copy; 2019 BSUIR, Zherebilo AV</p>
+</footer>
+
 </@c.page>

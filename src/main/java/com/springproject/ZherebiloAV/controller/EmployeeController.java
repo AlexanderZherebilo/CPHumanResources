@@ -5,7 +5,6 @@ import com.springproject.ZherebiloAV.repos.DepartmentRepo;
 import com.springproject.ZherebiloAV.repos.FamilyMemberRepo;
 import com.springproject.ZherebiloAV.repos.PositionRepo;
 import com.springproject.ZherebiloAV.service.EmployeeService;
-import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
