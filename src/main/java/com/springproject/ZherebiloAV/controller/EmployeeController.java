@@ -5,6 +5,8 @@ import com.springproject.ZherebiloAV.repos.DepartmentRepo;
 import com.springproject.ZherebiloAV.repos.FamilyMemberRepo;
 import com.springproject.ZherebiloAV.repos.PositionRepo;
 import com.springproject.ZherebiloAV.service.EmployeeService;
+import com.springproject.ZherebiloAV.service.WordWorker;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -36,6 +38,9 @@ public class EmployeeController {
 
     @Autowired
     private PositionRepo positionRepo;
+
+    @Autowired
+    private WordWorker wordWorker;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -318,6 +323,14 @@ public class EmployeeController {
             @RequestParam Date finish
     ) {
         employeeService.giveVacation(employee.getPersonnelNumber(), type, start, finish);
+        return "redirect:/employee/{employee}";
+    }
+
+    @GetMapping("employeeProfile/getEmployeeReport/{employee}")
+    public String getEmployeeReport(
+        @PathVariable Employee employee
+    ) throws IOException, InvalidFormatException {
+        wordWorker.createEmployeeReport(employee);
         return "redirect:/employee/{employee}";
     }
 }

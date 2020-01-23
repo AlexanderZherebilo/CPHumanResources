@@ -22,10 +22,10 @@ alter table if exists user_role
 
 create table employee (
     id int8 not null,
-    personnel_number int8 not null, --табельный номер
-    retirement_code int8 not null, --пенсионный код
+    personnel_number int8 not null,
+    retirement_code int8 not null,
     education varchar(255) not null,
-    marital_status varchar (255) not null, --семейное положение
+    marital_status varchar (255) not null,
     address varchar(255) not null,
     telephone varchar (255) not null,
     photo varchar (255),
@@ -36,10 +36,10 @@ alter table if exists usr
     add constraint usr_employee_fk
     foreign key (employee_id) references employee;
 
-create table vacation ( --отпуск
-    number int8, --номер указа
-    employee_id int8 not null, --id сотрудника
-    type varchar (255), --тип отпуска
+create table vacation (
+    number int8,
+    employee_id int8 not null,
+    type varchar (255),
     start date,
     finish date,
     primary key (number)

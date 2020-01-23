@@ -26,6 +26,9 @@
                 <div class="card-body">
                     <h4 class="card-title text-center">${currentEmployee.passport.surname} ${currentEmployee.passport.name} ${currentEmployee.passport.lastname}</h4>
                 </div>
+                <div class="card-footer">
+                    <a class="btn btn-primary" href="/employee/employeeProfile/getEmployeeReport/${currentEmployee.id}" onclick="getReport()">Сохранить информацию о сотруднике в файл <i>Word</i></a>
+                </div>
             </div>
             <div class="col-md-3 bg-light text-dark">
                 <p><b>Дата рождения:</b> ${currentEmployee.passport.birthday}</p>
@@ -110,4 +113,9 @@
         </div>
     </div>
     </div>
+<script>
+    function getReport() {
+        alert("Файл docx сохранён в папке reports");
+    }
+</script>
 </@c.page>
